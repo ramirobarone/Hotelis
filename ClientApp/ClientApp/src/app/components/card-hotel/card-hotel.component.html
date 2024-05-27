@@ -1,0 +1,22 @@
+<div class="card" style="width: 18rem;">
+  <img src="{{image}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+
+        <h5 class="card-title">{{name}}</h5>
+        <p class="card-text">{{description}}</p>
+      </div>
+      <div class="col-md-6">
+
+        <p class="card-text">Estado: {{stateHotel}} <i style="color: red; font-size: medium;" class="bi bi-check-circle-fill"></i> </p>
+
+      </div>
+      <p class="card-text">Habitaciones disponibles: {{availableRooms}}</p>
+
+
+    </div>
+      <a href="/room" class="btn btn-primary" style="margin: 3%;" routerLink="room">Habitaciones</a>
+      <a href="/reserve/{{idRoom}}" class="btn btn-primary" (click)="setCurrentRoom()">Reservas</a>
+  </div>
+</div>

@@ -7,16 +7,23 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { CardRoomComponent } from './components/card-room/card-room.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { CardHotelComponent } from './components/card-hotel/card-hotel.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ReservedComponent } from './components/reserved/reserved.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    CardRoomComponent,
+    SearchBarComponent,
+    CardHotelComponent,
+    FooterComponent,
+    ReservedComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -24,8 +31,9 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'room', component: CardRoomComponent, pathMatch: 'full' },
+      { path: 'reserve/:id', component: ReservedComponent, pathMatch: 'full' },
+
     ])
   ],
   providers: [],
