@@ -24,7 +24,8 @@ namespace Infrastructure.Repository
             if (where is null)
                 return default;
 
-            return await dbSet.Where(where).SingleOrDefaultAsync();
+            var response = await dbSet.Where(where).FirstOrDefaultAsync();
+            return response;
         }
 
         public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
@@ -74,7 +75,7 @@ namespace Infrastructure.Repository
                 }
             }
         }
-        private  Task DeleteAsync(T entity)
+        private Task DeleteAsync(T entity)
         {
             if (_hotelisContext.Entry(entity).State == EntityState.Deleted)
             {
@@ -86,7 +87,7 @@ namespace Infrastructure.Repository
 
         public async Task CreateAsync(T entity)
         {
-             await dbSet.AddAsync(entity);
+            await dbSet.AddAsync(entity);
         }
     }
 }

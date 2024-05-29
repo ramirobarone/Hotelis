@@ -1,15 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using Models.Interfaces;
 
 namespace ClientApp.Controllers
 {
     [ApiController]
     public class HomeController : ControllerBase
     {
+        private readonly IServiceGeneric<Hotel> hotelService;
+
+        public HomeController(IServiceGeneric<Models.Hotel> hotelService)
+        {
+            this.hotelService = hotelService;
+        }
 
         [HttpGet(nameof(GetHotels))]
-        public async Task<IActionResult> GetHotels(string search)
+        public async Task<IActionResult> GetHotels(int id)
         {
-            return await Task.FromResult(Ok());
+
+            if (id == 0)
+                return NoContent();
+
+
+            return Ok(await hotelService.GetById(id));
         }
     }
 }

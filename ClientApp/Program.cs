@@ -1,3 +1,4 @@
+using ClientApp.Extensions;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,8 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<HotelisContext>(option => option.UseMySQL(builder.Configuration.GetValue<string>("connectionString"))) ;
+builder.Services.AddDbContext<HotelisContext>(option => option.UseMySQL(builder.Configuration.GetValue<string>("ConnectionStrings:hotelis"))) ;
+builder.Services.AddHealthChecks();
 
+builder.AddInfraStructure();
+builder.AddApplication();
 
 var app = builder.Build();
 
@@ -27,6 +31,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.MapHealthChecks("/health");
 
 
 app.MapControllerRoute(

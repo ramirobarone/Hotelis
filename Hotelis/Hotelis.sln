@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "..\Models\Models.csproj", "{2429AAD1-971E-4697-8107-9C5A46145334}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApiHotelis", "TestApiHotelis\TestApiHotelis.csproj", "{4F930803-C6A6-4B20-9041-39532654E923}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2429AAD1-971E-4697-8107-9C5A46145334}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2429AAD1-971E-4697-8107-9C5A46145334}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2429AAD1-971E-4697-8107-9C5A46145334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F930803-C6A6-4B20-9041-39532654E923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F930803-C6A6-4B20-9041-39532654E923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F930803-C6A6-4B20-9041-39532654E923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F930803-C6A6-4B20-9041-39532654E923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
