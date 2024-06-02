@@ -1,15 +1,12 @@
-﻿using Models.Interfaces;
+﻿using Application.Interfaces;
+using Application.Models;
 using Infrastructure.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Models;
+using Infrastructure.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.HotelServices
 {
-    public class HotelServiceQuery : IServiceGeneric<Models.Hotel>
+    public class HotelServiceQuery : IServiceGeneric<Models.HotelDto>, IServiceBySearchKey<HotelDto>
     {
         private readonly IRepository<Infrastructure.Models.Hotel> repository;
 
@@ -18,54 +15,59 @@ namespace Application.HotelServices
             this.repository = repository;
         }
 
-        public Task Create(Models.Hotel entity)
+        public async Task Create(HotelDto entity)
         {
-            throw new NotImplementedException();
+            await repository.CreateAsync(entity);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await repository.DeleteAsync(id);
         }
 
-        public Task<IEnumerable<Models.Hotel>> GetallById(Models.Hotel entity)
+        public async Task<IEnumerable<Models.HotelDto>> GetallById(Models.HotelDto entity)
         {
-            throw new NotImplementedException();
-        }
+            var resultQuery = await repository.GetAllByIdAsync(x => x.Id == entity.Id);
 
-        public async Task<Models.Hotel> GetById(int id)
-        {
-            var response = await repository.GetByIdAsync(x => x.Id == id);
+            //return resultQuery.Cast<Models.HotelDto>();
 
-            if (response is null)
-                return await Task.FromResult<Models.Hotel>(new Models.Hotel());
+            List<HotelDto> resultList = new List<HotelDto>();
 
-            return new Models.Hotel()
+            foreach (var result in resultQuery)
             {
-                Id = response.Id,
-                CodeArea = response.CodeArea,
-                Description = response.Description,
-                Email = response.Email,
-                MetaDescription = response.MetaDescription,
-                Name = response.Name,
-                PhoneNumber = response.PhoneNumber,
-                AddressHotel = new Models.Address()
-                {
-                    Id = response.AddressHotel.Id,
-                    IdCity = response.AddressHotel.Id,
-                    Latitud = response.AddressHotel.Latitud,
-                    Longitud = response.AddressHotel.Longitud,
-                    Number = response.AddressHotel.Number,
-                    PostalCode = response.AddressHotel.PostalCode,
-                    Street = response.AddressHotel.Street
-
-                }
-            };
+                resultList.Add(result);
+            }
+            return resultList;
         }
 
-        public Task Update(Models.Hotel entity)
+        public async Task<Models.HotelDto> GetById(int id)
         {
-            throw new NotImplementedException();
+            var _hotel = await repository.GetByIdAsync(x => x.Id == id, y => y.Include(x => x.AddressHotel));
+
+            if (_hotel is null)
+                return await Task.FromResult<HotelDto>(null);
+
+            return _hotel;
+        }
+
+        public async Task<IEnumerable<HotelDto>> GetBySearchKeyword(string keyword)
+        {
+            IEnumerable<Hotel> resultHotels = await repository.GetAllByIdAsync(x => x.MetaDescription.Contains(keyword), null, y => y.Include(x => x.AddressHotel));
+
+            IList<HotelDto> hoteles = new List<HotelDto>();
+            foreach (var item in resultHotels)
+            {
+                hoteles.Add(item);
+            }
+
+            return hoteles;
+        }
+
+        public async Task Update(Models.HotelDto entity)
+        {
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
+
+            await repository.UpdateAsync(entity);
         }
     }
 }

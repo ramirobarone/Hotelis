@@ -1,6 +1,6 @@
 using System;
 
-namespace Models
+namespace Application.Models
 {
     public class Reserve
     {
@@ -9,6 +9,6 @@ namespace Models
         public TimeOnly BeginTime { get; set; }
         public int IdRoom { get; set; }
         public int IdCost { get; set; }
-        public int IdUser {get;set;}
+        public int IdUser { get; set; }
     }
 }

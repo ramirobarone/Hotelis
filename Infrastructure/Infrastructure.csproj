@@ -13,11 +13,11 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
     <PackageReference Include="migrations" Version="1.0.1" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="../Models/Models.csproj"></ProjectReference>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

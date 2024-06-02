@@ -27,7 +27,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\ClientApp\ClientApp.csproj" />
 	  <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
-	  <ProjectReference Include="..\..\Models\Models.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,7 +1,8 @@
 import { HomeService } from 'src/services/home.service';
-import { Hotel, Room } from './../../models/room';
+import { Room } from './../../models/room';
 import { RoomService } from '../../services/room.service';
 import { Component } from '@angular/core';
+import { Hotel } from 'src/models/hotel';
 
 @Component({
   selector: 'app-home',

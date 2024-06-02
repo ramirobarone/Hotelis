@@ -1,0 +1,76 @@
+2024-06-02 00:32:28.561 -03:00 [INF] User profile is available. Using 'C:\Users\rbarone\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-02 00:32:28.822 -03:00 [INF] Now listening on: https://localhost:7291
+2024-06-02 00:32:28.822 -03:00 [INF] Now listening on: http://localhost:5097
+2024-06-02 00:32:28.824 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-06-02 00:32:28.824 -03:00 [INF] Hosting environment: Development
+2024-06-02 00:32:28.825 -03:00 [INF] Content root path: C:\Users\rbarone\source\repos\Hotelis\ClientApp
+2024-06-02 00:32:29.237 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/ - null null
+2024-06-02 00:32:33.517 -03:00 [INF] No SPA development server running at https://localhost:44432 found.
+2024-06-02 00:32:33.670 -03:00 [INF] SPA proxy is not ready. Returning temporary landing page.
+2024-06-02 00:32:33.685 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/ - 200 null text/html 4450.7134ms
+2024-06-02 00:32:33.921 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/favicon.ico - null null
+2024-06-02 00:32:33.950 -03:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\rbarone\source\repos\Hotelis\ClientApp\wwwroot\favicon.ico'
+2024-06-02 00:32:33.952 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/favicon.ico - 200 5430 image/x-icon 30.7415ms
+2024-06-02 00:32:36.933 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/ - null null
+2024-06-02 00:32:40.978 -03:00 [INF] SPA proxy is not ready. Returning temporary landing page.
+2024-06-02 00:32:40.979 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/ - 200 null text/html 4046.139ms
+2024-06-02 00:32:41.047 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/favicon.ico - null null
+2024-06-02 00:32:41.052 -03:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\rbarone\source\repos\Hotelis\ClientApp\wwwroot\favicon.ico'
+2024-06-02 00:32:41.052 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/favicon.ico - 200 5430 image/x-icon 4.513ms
+2024-06-02 00:32:44.050 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/ - null null
+2024-06-02 00:32:45.150 -03:00 [INF] SPA proxy is ready. Redirecting to https://localhost:44432.
+2024-06-02 00:32:45.150 -03:00 [INF] SPA development server running at 'https://localhost:44432'
+2024-06-02 00:32:45.151 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/ - 302 0 null 1100.1843ms
+2024-06-02 00:32:54.126 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/api/hotel/GetHotels?idHotel=1 - null null
+2024-06-02 00:32:54.150 -03:00 [INF] Executing endpoint 'ClientApp.Controllers.HotelController.GetHotels (ClientApp)'
+2024-06-02 00:32:54.170 -03:00 [INF] Route matched with {action = "GetHotels", controller = "Hotel"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetHotels(Int32) on controller ClientApp.Controllers.HotelController (ClientApp).
+2024-06-02 00:32:54.698 -03:00 [INF] GetHotels
+2024-06-02 00:32:54.698 -03:00 [INF] Id buscado 1
+2024-06-02 00:32:55.176 -03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `h`.`Id`, `h`.`AddressHotelId`, `h`.`CodeArea`, `h`.`Description`, `h`.`Email`, `h`.`MetaDescription`, `h`.`Name`, `h`.`PhoneNumber`, `a`.`Id`, `a`.`IdCity`, `a`.`Latitud`, `a`.`Longitud`, `a`.`Number`, `a`.`PostalCode`, `a`.`Street`
+FROM `Hotels` AS `h`
+INNER JOIN `Address` AS `a` ON `h`.`AddressHotelId` = `a`.`Id`
+WHERE `h`.`Id` = @__id_0
+LIMIT 1
+2024-06-02 00:32:55.235 -03:00 [INF] Executing OkObjectResult, writing value of type 'Application.Models.HotelDto'.
+2024-06-02 00:32:55.250 -03:00 [INF] Executed action ClientApp.Controllers.HotelController.GetHotels (ClientApp) in 1077.3351ms
+2024-06-02 00:32:55.250 -03:00 [INF] Executed endpoint 'ClientApp.Controllers.HotelController.GetHotels (ClientApp)'
+2024-06-02 00:32:55.255 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/api/hotel/GetHotels?idHotel=1 - 200 null application/json; charset=utf-8 1128.9502ms
+2024-06-02 00:32:56.191 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/api/hotel/GetHotels?idHotel=1 - null null
+2024-06-02 00:32:56.193 -03:00 [INF] Executing endpoint 'ClientApp.Controllers.HotelController.GetHotels (ClientApp)'
+2024-06-02 00:32:56.193 -03:00 [INF] Route matched with {action = "GetHotels", controller = "Hotel"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetHotels(Int32) on controller ClientApp.Controllers.HotelController (ClientApp).
+2024-06-02 00:32:56.226 -03:00 [INF] GetHotels
+2024-06-02 00:32:56.226 -03:00 [INF] Id buscado 1
+2024-06-02 00:32:56.240 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `h`.`Id`, `h`.`AddressHotelId`, `h`.`CodeArea`, `h`.`Description`, `h`.`Email`, `h`.`MetaDescription`, `h`.`Name`, `h`.`PhoneNumber`, `a`.`Id`, `a`.`IdCity`, `a`.`Latitud`, `a`.`Longitud`, `a`.`Number`, `a`.`PostalCode`, `a`.`Street`
+FROM `Hotels` AS `h`
+INNER JOIN `Address` AS `a` ON `h`.`AddressHotelId` = `a`.`Id`
+WHERE `h`.`Id` = @__id_0
+LIMIT 1
+2024-06-02 00:32:56.241 -03:00 [INF] Executing OkObjectResult, writing value of type 'Application.Models.HotelDto'.
+2024-06-02 00:32:56.241 -03:00 [INF] Executed action ClientApp.Controllers.HotelController.GetHotels (ClientApp) in 48.0983ms
+2024-06-02 00:32:56.241 -03:00 [INF] Executed endpoint 'ClientApp.Controllers.HotelController.GetHotels (ClientApp)'
+2024-06-02 00:32:56.242 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/api/hotel/GetHotels?idHotel=1 - 200 null application/json; charset=utf-8 50.4719ms
+2024-06-02 00:33:55.428 -03:00 [INF] User profile is available. Using 'C:\Users\rbarone\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-02 00:33:55.599 -03:00 [INF] Now listening on: https://localhost:7291
+2024-06-02 00:33:55.599 -03:00 [INF] Now listening on: http://localhost:5097
+2024-06-02 00:33:55.609 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-06-02 00:33:55.609 -03:00 [INF] Hosting environment: Development
+2024-06-02 00:33:55.610 -03:00 [INF] Content root path: C:\Users\rbarone\source\repos\Hotelis\ClientApp
+2024-06-02 00:33:56.485 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/ - null null
+2024-06-02 00:34:00.769 -03:00 [INF] No SPA development server running at https://localhost:44432 found.
+2024-06-02 00:34:00.942 -03:00 [INF] SPA proxy is not ready. Returning temporary landing page.
+2024-06-02 00:34:00.960 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/ - 200 null text/html 4476.8203ms
+2024-06-02 00:34:01.197 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/favicon.ico - null null
+2024-06-02 00:34:01.214 -03:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\rbarone\source\repos\Hotelis\ClientApp\wwwroot\favicon.ico'
+2024-06-02 00:34:01.215 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/favicon.ico - 200 5430 image/x-icon 18.2698ms
+2024-06-02 00:34:04.201 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/ - null null
+2024-06-02 00:34:08.256 -03:00 [INF] SPA proxy is not ready. Returning temporary landing page.
+2024-06-02 00:34:08.256 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/ - 200 null text/html 4055.1678ms
+2024-06-02 00:34:08.324 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/favicon.ico - null null
+2024-06-02 00:34:08.333 -03:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: 'C:\Users\rbarone\source\repos\Hotelis\ClientApp\wwwroot\favicon.ico'
+2024-06-02 00:34:08.335 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/favicon.ico - 200 5430 image/x-icon 11.3961ms
+2024-06-02 00:34:11.333 -03:00 [INF] Request starting HTTP/1.1 GET https://localhost:7291/ - null null
+2024-06-02 00:34:11.646 -03:00 [INF] SPA proxy is ready. Redirecting to https://localhost:44432.
+2024-06-02 00:34:11.646 -03:00 [INF] SPA development server running at 'https://localhost:44432'
+2024-06-02 00:34:11.646 -03:00 [INF] Request finished HTTP/1.1 GET https://localhost:7291/ - 302 0 null 313.2598ms

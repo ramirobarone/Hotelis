@@ -1,4 +1,4 @@
-import { Hotel, Room } from '../models/room';
+import {  Room } from '../models/room';
 import { Injectable } from '@angular/core';
 
 @Injectable({

@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HotelisContext))]
-    partial class HotelisContextModelSnapshot : ModelSnapshot
+    [Migration("20240602043926_imagenes")]
+    partial class imagenes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,26 +144,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Hotels");
                 });
 
-            modelBuilder.Entity("Infrastructure.Models.HotelPicture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HotelId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HotelId");
-
-                    b.ToTable("HotelPicture");
-                });
-
             modelBuilder.Entity("Infrastructure.Models.Province", b =>
                 {
                     b.Property<int>("Id")
@@ -238,6 +221,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -246,6 +232,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
 
                     b.HasIndex("RoomId");
 
@@ -274,13 +262,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("AddressHotel");
                 });
 
-            modelBuilder.Entity("Infrastructure.Models.HotelPicture", b =>
-                {
-                    b.HasOne("Infrastructure.Models.Hotel", null)
-                        .WithMany("HotelPictures")
-                        .HasForeignKey("HotelId");
-                });
-
             modelBuilder.Entity("Infrastructure.Models.Province", b =>
                 {
                     b.HasOne("Infrastructure.Models.Country", "Country")
@@ -294,19 +275,23 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Infrastructure.Models.RoomPicture", b =>
                 {
-                    b.HasOne("Infrastructure.Models.Room", null)
+                    b.HasOne("Infrastructure.Models.Hotel", null)
                         .WithMany("RoomPictures")
+                        .HasForeignKey("HotelId");
+
+                    b.HasOne("Infrastructure.Models.Room", null)
+                        .WithMany("Pictures")
                         .HasForeignKey("RoomId");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.Hotel", b =>
                 {
-                    b.Navigation("HotelPictures");
+                    b.Navigation("RoomPictures");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.Room", b =>
                 {
-                    b.Navigation("RoomPictures");
+                    b.Navigation("Pictures");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,6 @@ namespace Infrastructure.Models
         public string Email { get; set; }
         public int CodeArea { get; set; }
         public int PhoneNumber { get; set; }
-        public virtual IEnumerable<RoomPicture> RoomPictures { get; set; }
+        public virtual ICollection<HotelPicture> HotelPictures{ get; set; }
     }
 }

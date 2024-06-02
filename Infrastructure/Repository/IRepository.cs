@@ -1,13 +1,11 @@
-using System.Threading;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace Models.Interfaces
+namespace Infrastructure.Repository
 {
     public interface IRepository<T>  where T : class
     {
-        Task<T> GetByIdAsync(Expression<Func<T, bool>> where);
+        Task<T> GetByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
 
         Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
 

@@ -1,4 +1,3 @@
-using Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 using System.Collections;
 using Infrastructure.Context;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Infrastructure.Repository
 {
@@ -19,13 +19,17 @@ namespace Infrastructure.Repository
 
             dbSet = _hotelisContext.Set<T>();
         }
-        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> where)
+        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
             if (where is null)
                 return default;
 
-            var response = await dbSet.Where(where).FirstOrDefaultAsync();
-            return response;
+            IQueryable<T> query = dbSet;
+
+            if (include != null)
+                query = include(query);
+
+            return await query.Where(where).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)

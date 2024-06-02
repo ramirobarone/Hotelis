@@ -1,15 +1,5 @@
 import { Time } from "@angular/common";
 
-
-export interface Hotel {
-  id: number;
-  name: string;
-  image: string;
-  rooms: Room[];
-  // address: Address;
-  meta: string;
-}
-
 export class Room {
   id: number = 0;
   name: string = '';
@@ -25,14 +15,7 @@ export interface City {
   name: string;
   province: Province;
 }
-export interface Address {
-  id: number;
-  address: string;
-  number: number;
-  city: City;
-  phone: string;
-  codeArea: string;
-}
+
 
 export interface ReserveRoom {
   idRoom: number;

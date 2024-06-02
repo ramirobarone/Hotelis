@@ -1,5 +1,6 @@
 ﻿using Application.HotelServices;
-using Models.Interfaces;
+using Application.Interfaces;
+using Application.Models;
 
 namespace ClientApp.Extensions
 {
@@ -7,7 +8,9 @@ namespace ClientApp.Extensions
     {
         public static void AddApplication(this WebApplicationBuilder app)
         {
-            app.Services.AddScoped<IServiceGeneric<Models.Hotel>, HotelServiceQuery>();
+            app.Services.AddScoped<IServiceGeneric<HotelDto>, HotelServiceQuery>();
+            app.Services.AddScoped<IServiceBySearchKey<HotelDto>, HotelServiceQuery>();
+
         }
     }
 }

@@ -1,0 +1,5 @@
+﻿@ClientApp_HostAddress = https://localhost:7291/api/hotel
+
+GET {{ClientApp_HostAddress}}/GetHotel?idHotel=1
+
+###

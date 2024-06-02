@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Models;
+using System.Threading.Channels;
 
 namespace Infrastructure.Context;
 
@@ -32,6 +33,12 @@ public partial class HotelisContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //modelBuilder.Entity<Hotel>(h =>
+        //{
+            //h.HasKey(h => h.AddressHotel);
+            
+        //});
+
         OnModelCreatingPartial(modelBuilder);
     }
 

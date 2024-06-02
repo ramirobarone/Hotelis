@@ -1,4 +1,4 @@
-namespace Models.Interfaces
+namespace Application.Interfaces
 {
     public interface IServiceGeneric<T> where T : class
     {
