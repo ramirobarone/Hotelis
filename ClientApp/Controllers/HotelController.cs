@@ -6,22 +6,27 @@ using System.Net;
 namespace ClientApp.Controllers
 {
     [ApiController]
-    [Route("api/[Controller]")]
-    public class HotelController(IServiceGeneric<HotelDto> serviceHotel, IServiceBySearchKey<HotelDto> serviceBySearchKey, ILogger<HotelController> logger) : ControllerBase
+    [Route("api/[controller]")]
+    public class HotelController(IServiceGeneric<HotelDto> serviceHotel, IServiceSearchByKeyword<HotelDto> serviceBySearchKey, ILogger<HotelController> logger) : ControllerBase
     {
         [HttpGet(nameof(GetHotels))]
         public async Task<IActionResult> GetHotels(string searchKey)
         {
+            logger.LogInformation("NameMethod {nameof(GetHotels)} - searchKey: {searchKey}", nameof(GetHotels), searchKey);
+
             if (string.IsNullOrEmpty(searchKey))
                 return NoContent();
 
-            return Ok(await serviceBySearchKey.GetBySearchKeyword(searchKey));
+            var resultHotels = await serviceBySearchKey.SearchByKeyword(searchKey);
+            logger.LogInformation("NameMethod {nameof(GetHotels)} - ResultSearchKey: {resultHotels}", nameof(GetHotels), System.Text.Json.JsonSerializer.Serialize(resultHotels));
+
+            return Ok(resultHotels);
         }
 
         [HttpGet(nameof(GetHotel))]
         public async Task<IActionResult> GetHotel([FromQuery] int idHotel)
         {
-            logger.LogInformation("Name {GetHotel} IdHotel {idHotel}", nameof(GetHotel), idHotel);
+            logger.LogInformation("NameMethod {GetHotel} IdHotel {idHotel}", nameof(GetHotel), idHotel);
 
             if (idHotel == null)
                 return NoContent();

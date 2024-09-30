@@ -3,6 +3,7 @@ import { Room } from './../../models/room';
 import { RoomService } from '../../services/room.service';
 import { Component } from '@angular/core';
 import { Hotel } from 'src/models/hotel';
+import { GoogleMap } from '@angular/google-maps';
 
 @Component({
   selector: 'app-home',
@@ -12,19 +13,16 @@ export class HomeComponent {
 
   _room: Room | null = null;
   _hoteles: Hotel[] = [];
+  isBodyVisible: boolean = true;
 
   constructor(private roomService: RoomService, HomeService: HomeService) {
-    console.log(roomService.getRooms()[0]);
 
-    this._room = roomService.getRooms()[0];
-
-
-    this._hoteles = HomeService.getHotels('');
   }
-  loadHotels(_hotels:Hotel[] ){
-    this._hoteles =_hotels;
+  loadHotels(_hotels: Hotel[]) {
+    this._hoteles = _hotels;
+    if (this._hoteles.length > 0)
+        this.isBodyVisible = false;
 
-    console.log(this._hoteles);
+      console.log(this._hoteles);
   }
-
 }

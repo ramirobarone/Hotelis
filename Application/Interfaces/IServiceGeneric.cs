@@ -2,11 +2,11 @@ namespace Application.Interfaces
 {
     public interface IServiceGeneric<T> where T : class
     {
-        Task Create(T entity);
+        Task<T> Create(T entity);
 
         Task<T> GetById(int id);
 
-        Task<IEnumerable<T>> GetallById(T entity);
+        Task<IEnumerable<T>> GetAllById(int entity);
 
         Task Update(T entity);
 

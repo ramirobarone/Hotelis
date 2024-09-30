@@ -20,14 +20,15 @@ export class SearchBarComponent {
 
     if (this.currentString === '')
       return;
-    console.log(this.currentString);
 
     this.hotelService.getHotels(this.currentString).subscribe(res => {
+      
       console.log(res);
 
-      // this._hoteles = res;
+      this._hoteles = res;
+      this._hotelesEmitter.emit(this._hoteles);
+
     });
 
-    this._hotelesEmitter.emit(this._hoteles);
   }
 }

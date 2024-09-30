@@ -1,13 +1,24 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BookingDto } from 'src/models/bookingDto';
+import { Room } from 'src/models/room';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AvialableRoomsService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
+  baseurl: string = 'https://localhost:7291/api/';
 
+  getRoom(idhotel: string | undefined): Observable<Room[]> {
+    return this.http.get<Room[]>(this.baseurl + 'room/GetRoomById?idhotel=' + idhotel);
+  }
+  getTimesFree(idRoom: number, date: string): Observable<any> {
 
+    return this.http.get(this.baseurl + `Bookings/GetSchedulesByRoom?idRoom=` + idRoom + "&date=" + date);
+  }
 
 }

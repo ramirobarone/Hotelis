@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace Infrastructure.Repository
@@ -13,6 +14,8 @@ namespace Infrastructure.Repository
 
         Task DeleteAsync(int id);
 
-        Task CreateAsync(T entity);
+        Task<EntityEntry<T>> CreateAsync(T entity);
+
+        Task<bool> Exist(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
     }
 }

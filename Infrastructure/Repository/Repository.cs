@@ -1,11 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
-using System.Collections;
 using Infrastructure.Context;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Repository
 {
@@ -48,11 +45,11 @@ namespace Infrastructure.Repository
 
             if (orderBy != null)
             {
-                return await orderBy(query).ToListAsync();
+                return await orderBy(query).AsNoTracking().ToListAsync();
             }
             else
             {
-                return await query.ToListAsync();
+                return await query.AsNoTracking().ToListAsync();
             }
         }
 
@@ -89,9 +86,20 @@ namespace Infrastructure.Repository
             return Task.CompletedTask;
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task<EntityEntry<T>> CreateAsync(T entity)
         {
-            await dbSet.AddAsync(entity);
+            var result = await dbSet.AddAsync(entity);
+            await SaveChagesAsync();
+            return result;
+        }
+        private async Task SaveChagesAsync()
+        {
+            await _hotelisContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> Exist(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        {
+            return await dbSet.AsNoTracking().AnyAsync(where);
         }
     }
 }

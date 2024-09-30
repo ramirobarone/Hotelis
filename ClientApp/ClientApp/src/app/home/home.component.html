@@ -2,12 +2,16 @@
 
 <div class="row">
   <span *ngFor="let item of _hoteles" class="col-md-3" style="margin: 20px">
-    <app-card-hotel
-      name="{{ item.name }}"
-      description="{{ item.description }}"
-      image="{{ item.image }}"
-    ></app-card-hotel>
+    <app-card-hotel name="{{ item.name }}"
+                    description="{{ item.description}}"
+                    idHotel="{{item.id}}"
+      image="{{item.pictures[0].path}}"></app-card-hotel>
   </span>
 </div>
 
-<!-- <app-footer class="position-absolute bottom-0 start-20"></app-footer> -->
+<ng-container *ngIf="isBodyVisible">
+  <div class="row">
+    <app-body-principal></app-body-principal>
+  </div>
+</ng-container>
+

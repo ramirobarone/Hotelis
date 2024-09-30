@@ -1,6 +1,7 @@
 import { RoomService } from 'src/services/room.service';
 import { Component, Input } from '@angular/core';
 import { Room } from 'src/models/room';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-hotel',
@@ -22,19 +23,21 @@ export class CardHotelComponent {
   @Input()
   stateHotel: boolean = true;
   @Input()
-  idRoom: string = '';
+  idHotel: string = '';
 
-  constructor(private RoomService: RoomService) {
+  constructor(private RoomService: RoomService, private router: Router) {
 
   }
 
   setCurrentRoom(): void {
-
-    let id = Number.parseInt(this.idRoom)
+    
+    let id = Number.parseInt(this.idHotel)
 
     let currentRoom = { id: id, name: this.name, description: this.description, urlPictures: "" }
 
-    this.RoomService.setCurrentRoom(currentRoom)
+    this.router.navigate(['/room', { id: this.idHotel }]);
+
+    //this.RoomService.setCurrentRoom(currentRoom)
   }
 
 }

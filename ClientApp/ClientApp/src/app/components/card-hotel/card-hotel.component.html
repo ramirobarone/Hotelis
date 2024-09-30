@@ -2,21 +2,19 @@
   <img src="{{image}}" class="card-img-top" alt="...">
   <div class="card-body">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
 
         <h5 class="card-title">{{name}}</h5>
         <p class="card-text">{{description}}</p>
+
+        <p class="card-text">Estado: {{stateHotel}} <i style="color: red; font-size: medium;"
+            class="bi bi-check-circle-fill"></i> </p>
+
+        <p class="card-text">Habitaciones disponibles: {{availableRooms}}</p>
       </div>
-      <div class="col-md-6">
-
-        <p class="card-text">Estado: {{stateHotel}} <i style="color: red; font-size: medium;" class="bi bi-check-circle-fill"></i> </p>
-
-      </div>
-      <p class="card-text">Habitaciones disponibles: {{availableRooms}}</p>
-
 
     </div>
-      <a href="/room" class="btn btn-primary" style="margin: 3%;" routerLink="room">Habitaciones</a>
-      <a href="/reserve/{{idRoom}}" class="btn btn-primary" (click)="setCurrentRoom()">Reservas</a>
+    <a class="btn btn-primary" style="margin: 3%;" [routerLink]="['/room', idHotel]">Habitaciones</a>
+    <a href="/reserve/{{idHotel}}" class="btn btn-primary" (click)="setCurrentRoom()">Reservas</a>
   </div>
 </div>

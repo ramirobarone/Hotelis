@@ -1,4 +1,6 @@
+using Application.Models.Extensions;
 using Infrastructure.Models;
+using System.Runtime.CompilerServices;
 
 namespace Application.Models
 {
@@ -14,8 +16,11 @@ namespace Application.Models
         public int PhoneNumber { get; set; }
         public IEnumerable<HotelPictureDto> Pictures { get; set; }
 
+
+
         public static implicit operator HotelDto(Hotel hotel)
         {
+
             return new Models.HotelDto()
             {
                 Id = hotel.Id,
@@ -25,7 +30,8 @@ namespace Application.Models
                 MetaDescription = hotel.MetaDescription,
                 Name = hotel.Name,
                 PhoneNumber = hotel.PhoneNumber,
-                //Pictures = hotel.HotelPictures.Cast<HotelPictureDto>(),
+                Pictures = hotel?.HotelPictures?.ConvertToHotelPictureDto(),
+
                 AddressHotel = new Models.Address()
                 {
                     Id = hotel.AddressHotel.Id,
@@ -65,4 +71,5 @@ namespace Application.Models
             };
         }
     }
+
 }

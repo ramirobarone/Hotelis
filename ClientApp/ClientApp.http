@@ -1,5 +1,17 @@
-﻿@ClientApp_HostAddress = https://localhost:7291/api/hotel
+﻿@ClientApp_HostAddress = https://localhost:7291
 
-GET {{ClientApp_HostAddress}}/GetHotel?idHotel=1
+GET https://localhost:7291/api/hotel/GetHotel?idHotel=1
+
+
+GET {{ClientApp_HostAddress}}/room/getroombyid/{id}?idHotel=0
+
+###
+
+POST {{ClientApp_HostAddress}}/api/bookings/CreateBooking
+Content-Type: application/json
+
+{
+  //BookingInputDto
+}
 
 ###

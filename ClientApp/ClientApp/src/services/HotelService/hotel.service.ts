@@ -13,7 +13,7 @@ export class HotelService {
   }
   baseurl: string = 'https://localhost:7291/api/hotel/'
 
-  getHotels(keyword: string): Observable<Hotel> {
-    return this.http.get<Hotel>(this.baseurl + 'getHotels?searchKey=' + keyword);
+  getHotels(keyword: string): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>(this.baseurl + 'getHotels?searchKey=' + keyword);
   }
 }

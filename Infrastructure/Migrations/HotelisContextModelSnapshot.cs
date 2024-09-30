@@ -16,7 +16,7 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.5")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Infrastructure.Models.Address", b =>
@@ -48,6 +48,36 @@ namespace Infrastructure.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("Infrastructure.Models.Bookings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CheckInTimeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateReserved")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("IdRoom")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckInTimeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Bookings");
+                });
+
             modelBuilder.Entity("Infrastructure.Models.City", b =>
                 {
                     b.Property<int>("Id")
@@ -55,7 +85,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("ProvinceId")
@@ -78,9 +107,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Hour")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdRoom")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -161,6 +187,32 @@ namespace Infrastructure.Migrations
                     b.ToTable("HotelPicture");
                 });
 
+            modelBuilder.Entity("Infrastructure.Models.PreBooking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdRoom")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeToExpire")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("UserId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("PreBooking");
+                });
+
             modelBuilder.Entity("Infrastructure.Models.Province", b =>
                 {
                     b.Property<int>("Id")
@@ -181,32 +233,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Provincies");
                 });
 
-            modelBuilder.Entity("Infrastructure.Models.Reserve", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<TimeOnly>("BeginTime")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("DateReserved")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("IdCost")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdRoom")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Reserves");
-                });
-
             modelBuilder.Entity("Infrastructure.Models.Room", b =>
                 {
                     b.Property<int>("Id")
@@ -219,15 +245,23 @@ namespace Infrastructure.Migrations
                     b.Property<int>("BedNumbers")
                         .HasColumnType("int");
 
+                    b.Property<int>("CostId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("HotelsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CostId");
+
+                    b.HasIndex("HotelsId");
 
                     b.ToTable("Rooms");
                 });
@@ -250,6 +284,83 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("RoomPictures");
+                });
+
+            modelBuilder.Entity("Infrastructure.Models.TimesAvailable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Time")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TimesAvialable");
+                });
+
+            modelBuilder.Entity("Infrastructure.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodeArea")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("IdAddress")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("IdentityNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Infrastructure.Models.Bookings", b =>
+                {
+                    b.HasOne("Infrastructure.Models.TimesAvailable", "CheckInTime")
+                        .WithMany()
+                        .HasForeignKey("CheckInTimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CheckInTime");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.City", b =>
@@ -281,6 +392,17 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("HotelId");
                 });
 
+            modelBuilder.Entity("Infrastructure.Models.PreBooking", b =>
+                {
+                    b.HasOne("Infrastructure.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Infrastructure.Models.Province", b =>
                 {
                     b.HasOne("Infrastructure.Models.Country", "Country")
@@ -292,11 +414,39 @@ namespace Infrastructure.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("Infrastructure.Models.Room", b =>
+                {
+                    b.HasOne("Infrastructure.Models.Cost", "Cost")
+                        .WithMany()
+                        .HasForeignKey("CostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Models.Hotel", "Hotels")
+                        .WithMany()
+                        .HasForeignKey("HotelsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cost");
+
+                    b.Navigation("Hotels");
+                });
+
             modelBuilder.Entity("Infrastructure.Models.RoomPicture", b =>
                 {
                     b.HasOne("Infrastructure.Models.Room", null)
                         .WithMany("RoomPictures")
                         .HasForeignKey("RoomId");
+                });
+
+            modelBuilder.Entity("Infrastructure.Models.User", b =>
+                {
+                    b.HasOne("Infrastructure.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.Hotel", b =>

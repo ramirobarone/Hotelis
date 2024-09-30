@@ -24,7 +24,6 @@ export class ReservedComponent {
 
 
   getRoomSelected(): void {
-     this.selectedRoom = this.roomService.getCurrentRoom();
 
 
   }
