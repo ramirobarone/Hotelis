@@ -4,6 +4,7 @@ using Infrastructure.Models;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace Application.Services.HotelServices
 {
@@ -14,7 +15,7 @@ namespace Application.Services.HotelServices
 
         public async Task<HotelDto> Create(HotelDto entity)
         {
-           var _hotel= await repositoryHotel.CreateAsync(entity);
+            var _hotel = await repositoryHotel.CreateAsync(entity);
 
             return _hotel.Entity;
         }
@@ -46,25 +47,34 @@ namespace Application.Services.HotelServices
             var _hotel = await repositoryHotel.GetByIdAsync(x => x.Id == id, y => y.Include(x => x.AddressHotel));
 
             if (_hotel is null)
-                return await Task.FromResult<HotelDto>(null);
+                return await Task.FromResult<HotelDto>(result: null);
 
             return _hotel;
         }
 
         public async Task<IEnumerable<HotelDto>> SearchByKeyword(string keyword)
         {
-            IEnumerable<Hotel> resultHotels = await repositoryHotel
-                .GetAllByIdAsync(x => x.MetaDescription.Contains(keyword), null, y => y.Include(x => x.AddressHotel)
-                .Include(x => x.HotelPictures));
-
-            IList<HotelDto> hoteles = new List<HotelDto>();
-
-            foreach (var item in resultHotels)
+            try
             {
-                hoteles.Add(item);
-            }
 
-            return hoteles;
+                IEnumerable<Hotel> resultHotels = await repositoryHotel
+                    .GetAllByIdAsync(x => x.MetaDescription.Contains(keyword), null, y => y.Include(x => x.AddressHotel)
+                    .Include(x => x.HotelPictures));
+
+                IList<HotelDto> hoteles = new List<HotelDto>();
+
+                foreach (var item in resultHotels)
+                {
+                    hoteles.Add(item);
+                }
+
+                return hoteles;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
 
         public async Task Update(HotelDto entity)

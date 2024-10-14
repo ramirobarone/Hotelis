@@ -1,9 +1,12 @@
 ﻿using Application.Models.User;
+using Application.Models.Users;
 
 namespace Application.Interfaces
 {
     public interface IAccountService
     {
-        Task<string> Authenticate(UserDto userDto);
+        Task<UserLoginDto> Authenticate(UserDto userDto);
+
+        Task<bool> CreateAccount(UserCreateDto userCreateDto);
     }
 }

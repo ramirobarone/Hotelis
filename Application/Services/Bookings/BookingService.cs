@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using System.Collections.Immutable;
-using System.Data.SqlTypes;
 
 namespace Application.Services.Reserves
 {
@@ -79,6 +78,7 @@ namespace Application.Services.Reserves
 
             return await repositoryBookings.GetAllByIdAsync(x => x.IdRoom == entity);
         }
+        public async Task<IEnumerable<Bookings>> GetBookingsByUserGuidAsync(Guid userGuid) => await repositoryBookings.GetAllByIdAsync(x => x.UserGuid == userGuid);
 
         public async Task Update(Bookings entity)
         {

@@ -13,7 +13,7 @@ namespace ClientApp.Extensions
     {
         public static void AddApplication(this WebApplicationBuilder app)
         {
-            app.Services.AddOptions<JwtOptions>().ValidateOnStart();
+            app.Services.AddOptions<JwtOptions>().BindConfiguration("JwtOptions").ValidateOnStart();
 
             app.Services.AddScoped<IServiceGeneric<HotelDto>, HotelServiceQuery>();
             app.Services.AddScoped<IServiceSearchByKeyword<HotelDto>, HotelServiceQuery>();

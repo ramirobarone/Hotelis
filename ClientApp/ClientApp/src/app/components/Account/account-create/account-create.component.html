@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-6">
+
+
+    <div class="form-group">
+
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" [(ngModel)]="userCreateDto.email" name="email" id="email" #email required title="Email" placeholder="Ingrese su email"/>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" [(ngModel)]="userCreateDto.password" title="Password" placeholder="Ingrese su password" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Verificar Password</label>
+      <input type="password" class="form-control" title="Verificar Password" placeholder="Verifique su password" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Número de Documento</label>
+      <input type="text" class="form-control" [(ngModel)]="userCreateDto.identityNumber" title="Número de Documento" placeholder="Ingrese su número de documento" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" [(ngModel)]="userCreateDto.name" title="Nombre" placeholder="Ingrese su nombre" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Apellido</label>
+      <input type="text" class="form-control" [(ngModel)]="userCreateDto.lastName" title="Apellido" placeholder="Ingrese su apellido" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Codigo de Area</label>
+      <input type="text" class="form-control" [(ngModel)]="userCreateDto.codeArea" title="Codigo de Area" placeholder="Ingrese su codigo de area" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Telefono</label>
+      <input type="text" class="form-control" maxlength="10" [(ngModel)]="userCreateDto.phoneNumber" title="Telefono" placeholder="Ingrese su telefono" />
+    </div>
+
+    <div class="row marginButton">
+      <div class="col-md-6">
+        <button (click)="createAccount()" class="btn btn-success">Crear Cuenta</button>
+      </div>
+
+      <div class="col-md-6 position-relative">
+        <button class="btn btn-outline-success position-absolute end-0" [routerLink]="['/home']">Volver</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { UserDto } from './Models/userDto';
+import { Component, ElementRef, EventEmitter, Output, Renderer2, ViewChild } from '@angular/core';
+import { UserDto, UserLoginDto } from './Models/userDto';
 import { AccountService } from './Service/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +9,28 @@ import { AccountService } from './Service/account.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private serviceAuthenticat: AccountService) {
-    //this.userDto = { email: '', password: '' }
-  }
+  @ViewChild('fullNameLabel') fullNameChild!: ElementRef;
 
-  userDto: UserDto = { email: '', password: '' };
+  constructor(private serviceAuthenticat: AccountService, private router: Router, private renderer: Renderer2) {
+  }
+  userDto: UserDto = { email: 'ramiro_barone@hotmail.com', password: 'ramiro0908' };
+
   login(): void {
-    console.log(this.userDto);
-
-    this.serviceAuthenticat.authenticat(this.userDto).subscribe(res => {
-
+    this.serviceAuthenticat.authenticat(this.userDto).subscribe({
+      next: (res) => {
+        console.log('token:', res);
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('fullName', res.fullName);
+        this.changeFullName(res.fullName);
+        this.router.navigate(['/']);
+        dispatchEvent(new Event('refrescar'));
+      },
+      error: (err) => {
+        console.error('Error authenticating', err);
+      }
     });
-
   }
-
+  changeFullName(name: string): void {
+ 
+  }
 }

@@ -66,6 +66,9 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("UserGuid")
+                        .HasColumnType("char(36)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -306,6 +309,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<bool>("AccountActivate")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
@@ -322,6 +328,12 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsOwnAccount")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
@@ -334,8 +346,14 @@ namespace Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("ProviderAccount")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("SecondName")
                         .HasColumnType("longtext");
+
+                    b.Property<Guid>("UserGuid")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 

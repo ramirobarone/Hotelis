@@ -5,14 +5,9 @@ using System.Diagnostics;
 namespace ClientApp.Pages
 {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public class ErrorModel : PageModel
+    public class ErrorModel(ILogger<ErrorModel> _logger) : PageModel
     {
         private readonly ILogger<ErrorModel> _logger;
-
-        public ErrorModel(ILogger<ErrorModel> logger)
-        {
-            _logger = logger;
-        }
 
         public string? RequestId { get; set; }
 

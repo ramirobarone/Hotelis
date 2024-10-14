@@ -1,9 +1,9 @@
 ﻿using Application.Interfaces;
 using Application.Models.Options;
 using Application.Models.User;
+using Application.Models.Users;
 using Infrastructure.Models;
 using Infrastructure.Repository;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,20 +15,22 @@ namespace Application.Services.Account
     public class AccountService(IRepository<User> repositoryUser, IOptions<JwtOptions> jwtOptions) : IAccountService
     {
         private SymmetricSecurityKey _key;
-        public async Task<string> Authenticate(UserDto userDto)
+        public async Task<UserLoginDto> Authenticate(UserDto userDto)
         {
             //logger.LogInformation("User authenticat is {0}:", userDto.Email);
 
-            bool isAuthenticate = await IsUserAuthenticated(userDto.Email, userDto.Password);
+            User isValidUser = await IsUserAuthenticated(userDto.Email, userDto.Password);
 
             //logger.LogInformation("User authenticat is {0}: result is {1}", userDto.Email, isAuthenticate);
 
-            if (isAuthenticate)
-                return CreateToken(userDto.Email);
+            if (isValidUser is not null && !string.IsNullOrEmpty(isValidUser.Email))
+            {
+                return new UserLoginDto(isValidUser.Name + " " + isValidUser.LastName, CreateToken(isValidUser.Email), 0, isValidUser.UserGuid);
+            }
 
             throw new UnauthorizedAccessException("The user is not authorizated");
         }
-        private async Task<bool> IsUserAuthenticated(string email, string password) => await repositoryUser.Exist(x => x.Email == email && x.Password == password);
+        private async Task<User> IsUserAuthenticated(string email, string password) => await repositoryUser.GetByIdAsync(x => x.Email == email && x.Password == password);
         private string CreateToken(string userId)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.Key));
@@ -47,5 +49,19 @@ namespace Application.Services.Account
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public async Task<bool> CreateAccount(UserCreateDto userCreateDto)
+        {
+            if (userCreateDto is null)
+                throw new ArgumentNullException(nameof(userCreateDto));
+
+            if (await ExistAccount(userCreateDto))
+                return false;
+
+            var created = await repositoryUser.CreateAsync(userCreateDto);
+
+            return created.Entity.Id > 0;
+        }
+        private async Task<bool> ExistAccount(UserCreateDto userCreateDto) => await repositoryUser.Exist(x => x.Email == userCreateDto.Email);
     }
 }

@@ -46,13 +46,11 @@ namespace Application.Services.Rooms
             throw new NotImplementedException();
         }
 
-        public async Task<bool> IsAvailable(AvailableRequestDto availableDto)
-        {
-            return await repositoryBooking
+        public async Task<bool> IsAvailable(AvailableRequestDto availableDto) => await repositoryBooking
                 .GetByIdAsync(x => x.IdRoom == availableDto.idRoom
                 && x.CheckInTime.Id == availableDto.idCheckTime
                 && x.DateReserved == availableDto.date) != null;
-        }
+        
         public async Task<IEnumerable<ScheduleDto>> GetTimesAsync()
         {
             IList<ScheduleDto> times = new List<ScheduleDto>();

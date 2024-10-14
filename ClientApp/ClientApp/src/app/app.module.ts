@@ -16,6 +16,10 @@ import { BodyPrincipalComponent } from './components/body-principal/body-princip
 import { PopupComponent } from './components/Shared/popup/popup.component';
 import { CheckoutComponent } from './components/Checkout/checkout/checkout.component';
 import { LoginComponent } from './components/Account/login/login.component';
+import { AccountCreateComponent } from './components/Account/account-create/account-create.component';
+import { LogoutComponent } from './components/Account/logout/logout.component';
+import { BookingsComponent } from './components/bookings/bookings/bookings.component';
+import { ControlRoomComponent } from './components/bookings/control-room/control-room.component';
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import { LoginComponent } from './components/Account/login/login.component';
     BodyPrincipalComponent,
     PopupComponent,
     CheckoutComponent,
-    LoginComponent
+    LoginComponent,
+    AccountCreateComponent,
+    LogoutComponent,
+    BookingsComponent,
+    ControlRoomComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -42,6 +50,8 @@ import { LoginComponent } from './components/Account/login/login.component';
       { path: 'room/:id', component: CardRoomComponent, pathMatch: 'full' },
       { path: 'reserve/:id', component: ReservedComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
+      { path: 'accountCreate', component: AccountCreateComponent, pathMatch: 'full' },
+      { path: 'logout', component: LogoutComponent, pathMatch: 'full' },
 
     ])
   ],

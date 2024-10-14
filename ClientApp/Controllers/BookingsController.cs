@@ -44,5 +44,14 @@ namespace ClientApp.Controllers
 
             return Ok(await bookings.GetSchedulesyRoom(idRoom, date));
         }
+
+        [HttpGet, Route(nameof(GetBookingsByUserGuid))]
+        public async Task<IActionResult> GetBookingsByUserGuid(Guid userGuid)
+        {
+            if (userGuid == Guid.Empty)
+                return NoContent();
+
+            return Ok(await bookings.GetBookingsByUserGuidAsync(userGuid));
+        }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Application.Models.User;
+using System.ComponentModel.DataAnnotations;
+using Infrastructure.Models;
 
-namespace Application.Models.User.User
+namespace Application.Models.Users
 {
     public class UserCreateDto : UserDto
     {
@@ -16,12 +18,33 @@ namespace Application.Models.User.User
         [MinLength(3)]
         public required string Name { get; init; }
         [MinLength(3)]
-        public required string LastName { get; init; }
+        public required string LastName { get;  init; }
         [MinLength(3)]
         public string CodeArea { get; init; }
         [MinLength(8)]
         public string PhoneNumber { get; init; }
         [MinLength(8)]
         public string IdentityNumber { get; init; }
+        public Guid? UserGuid { get; private set; }
+
+        public static implicit operator Infrastructure.Models.User(UserCreateDto userCreateDto)
+        {
+            return new Infrastructure.Models.User()
+            {
+                Email = userCreateDto.Email,
+                Password = userCreateDto.Password,
+                PhoneNumber = userCreateDto.PhoneNumber,
+                IdentityNumber = userCreateDto.IdentityNumber,
+                AccountActivate = false,
+                CodeArea = userCreateDto.CodeArea,
+                LastName = userCreateDto.LastName,
+                Name = userCreateDto.Name
+            };
+        }
+        public void CreateUserGuid()
+        {
+            if (UserGuid == null)
+                UserGuid = Guid.NewGuid();
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Models.User;
-using Application.Models.User.User;
-using Application.Services.Account;
+using Application.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClientApp.Controllers
@@ -15,16 +14,29 @@ namespace ClientApp.Controllers
         [HttpPost(nameof(Authenticat))]
         public async Task<IActionResult> Authenticat(UserDto userDto)
         {
-            string token = await accountService.Authenticate(userDto);
+            UserLoginDto loginUser = await accountService.Authenticate(userDto);
 
-            if (string.IsNullOrEmpty(token))
+            if (loginUser is null)
                 return Unauthorized();
 
-            return Ok(token);
+            return Ok(loginUser);
         }
+        [HttpPost(nameof(CreateAccount))]
+
+        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateAccount(UserCreateDto userCreateDto)
         {
-            return Created("", null);
+            if (!ModelState.IsValid)
+                return BadRequest("Error controler");
+
+            bool accountCreated = await accountService.CreateAccount(userCreateDto);
+
+            if (accountCreated)
+                return Created("/home", accountCreated);
+
+            return Ok(accountCreated);
 
         }
     }

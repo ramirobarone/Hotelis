@@ -10,7 +10,7 @@ import { GoogleMap } from '@angular/google-maps';
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-
+  fullName = '';
   _room: Room | null = null;
   _hoteles: Hotel[] = [];
   isBodyVisible: boolean = true;
@@ -21,8 +21,8 @@ export class HomeComponent {
   loadHotels(_hotels: Hotel[]) {
     this._hoteles = _hotels;
     if (this._hoteles.length > 0)
-        this.isBodyVisible = false;
+      this.isBodyVisible = false;
 
-      console.log(this._hoteles);
+    console.log(this._hoteles);
   }
 }
