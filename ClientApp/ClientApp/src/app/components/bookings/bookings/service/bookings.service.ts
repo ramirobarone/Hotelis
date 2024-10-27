@@ -16,4 +16,7 @@ export class BookingsService {
     console.log(this.baseurl + 'Bookings/CreateBooking', booking);
     return this.http.post<BookingDto>(this.baseurl + 'Bookings/CreateBooking', booking);
   }
+  getBookings(): Observable<BookingDto[]> {
+    return this.http.get<BookingDto[]>(this.baseurl + 'Bookings/GetBookings');
+  }
 }

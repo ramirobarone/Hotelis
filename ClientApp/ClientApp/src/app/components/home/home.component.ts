@@ -1,9 +1,8 @@
-import { HomeService } from 'src/services/home.service';
-import { Room } from './../../models/room';
-import { RoomService } from '../../services/room.service';
+import { Room } from '../../../models/room';
 import { Component } from '@angular/core';
 import { Hotel } from 'src/models/hotel';
 import { GoogleMap } from '@angular/google-maps';
+import { RoomService } from '../bookings/card-room/service/room.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +14,7 @@ export class HomeComponent {
   _hoteles: Hotel[] = [];
   isBodyVisible: boolean = true;
 
-  constructor(private roomService: RoomService, HomeService: HomeService) {
+  constructor(private roomService: RoomService) {
 
   }
   loadHotels(_hotels: Hotel[]) {

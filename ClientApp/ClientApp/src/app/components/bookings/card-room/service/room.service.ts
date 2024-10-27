@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import {  Room } from '../models/room';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EnvironmentsService } from '../app/ServicesShared/environments.service';
+import { EnvironmentsService } from '../../../../ServicesShared/environments.service';
+import { Room } from '../../../../../models/room';
 
 @Injectable({
   providedIn: 'root'
@@ -16,4 +16,5 @@ export class RoomService {
   public getRooms(id: number): Observable<Room[]> {
     return this.http.get<Room[]>(this.baseurl + 'Room/getroombyid?idHotel='+id)
   }
+ 
 }

@@ -39,6 +39,7 @@ builder.Services.AddCors(cors =>
 
 });
 
+builder.Services.AddMemoryCache();
 builder.AddInfraStructure();
 builder.AddApplication();
 builder.Services.AddSwaggerGen(c =>

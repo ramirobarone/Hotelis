@@ -5,21 +5,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CardRoomComponent } from './components/card-room/card-room.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { CardHotelComponent } from './components/card-hotel/card-hotel.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { NavMenuComponent } from './components/home/nav-menu/nav-menu.component';
+import { HomeComponent } from './components/home/home.component';
+import { CardRoomComponent } from './components/bookings/card-room/card-room.component';
+import { SearchBarComponent } from './components/home/search-bar/search-bar.component';
+import { CardHotelComponent } from './components/home/card-hotel/card-hotel.component';
+import { FooterComponent } from './components/home/footer/footer.component';
 import { ReservedComponent } from './components/reserved/reserved.component';
-import { BodyPrincipalComponent } from './components/body-principal/body-principal.component';
+import { BodyPrincipalComponent } from './components/home/body-principal/body-principal.component';
 import { PopupComponent } from './components/Shared/popup/popup.component';
-import { CheckoutComponent } from './components/Checkout/checkout/checkout.component';
 import { LoginComponent } from './components/Account/login/login.component';
 import { AccountCreateComponent } from './components/Account/account-create/account-create.component';
 import { LogoutComponent } from './components/Account/logout/logout.component';
 import { BookingsComponent } from './components/bookings/bookings/bookings.component';
-import { ControlRoomComponent } from './components/bookings/control-room/control-room.component';
+import { ControlRoomComponent } from './components/Account/control-room/control-room.component';
+import { BillingDataComponent } from './components/bookings/billing-data/billing-data.component';
+import { CheckoutComponent } from './components/bookings/checkout/checkout.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ControlRoomComponent } from './components/bookings/control-room/control
     AccountCreateComponent,
     LogoutComponent,
     BookingsComponent,
-    ControlRoomComponent
+    ControlRoomComponent,
+    BillingDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

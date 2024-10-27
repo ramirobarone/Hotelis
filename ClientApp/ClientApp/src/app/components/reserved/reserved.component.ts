@@ -1,7 +1,7 @@
 import { Room } from 'src/models/room';
-import { RoomService } from 'src/services/room.service';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { RoomService } from '../bookings/card-room/service/room.service';
 
 @Component({
   selector: 'app-reserved',

@@ -12,7 +12,6 @@ namespace Infrastructure.Models
         public int IdRoom { get; set; }
         public decimal Price { get; set; }
         public Guid UserGuid { get; set; }
-        //public int IdUser { get; set; }
         public int CheckInTimeId { get; set; }
 
         public virtual TimesAvailable CheckInTime { get; set; }

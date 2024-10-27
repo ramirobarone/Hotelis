@@ -18,9 +18,9 @@ export class LoginComponent {
   login(): void {
     this.serviceAuthenticat.authenticat(this.userDto).subscribe({
       next: (res) => {
-        console.log('token:', res);
         localStorage.setItem('token', res.token);
         localStorage.setItem('fullName', res.fullName);
+        localStorage.setItem('userGuid', res.userGuid);
         this.changeFullName(res.fullName);
         this.router.navigate(['/']);
         dispatchEvent(new Event('refrescar'));

@@ -1,13 +1,15 @@
 ﻿using Application.Interfaces;
 using Application.Models.Booking;
 using Infrastructure.Models;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace ClientApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingsController(IBookings bookings, ILogger<BookingsController> logger) : ControllerBase
+    public class BookingsController(IBookings bookings, ILogger<BookingsController> logger, IMemoryCache memoryCache) : ControllerBase
     {
 
         [HttpGet, Route(nameof(GetBookings))]
@@ -37,7 +39,7 @@ namespace ClientApp.Controllers
             return Created("/Payload", _bookingInputDto);
         }
         [HttpGet, Route(nameof(GetSchedulesByRoom))]
-        public async Task<IActionResult> GetSchedulesByRoom(int idRoom,  string date)
+        public async Task<IActionResult> GetSchedulesByRoom(int idRoom, string date)
         {
             if (idRoom <= 0)
                 return NoContent();
@@ -52,6 +54,19 @@ namespace ClientApp.Controllers
                 return NoContent();
 
             return Ok(await bookings.GetBookingsByUserGuidAsync(userGuid));
+        }
+        [HttpPost, Route(nameof(CheckTemporalAvaiabilityRoom))]
+        public Task<IActionResult> CheckTemporalAvaiabilityRoom(BookingInputDto _bookingDto)
+        {
+            string createPrimaryKey = $"{_bookingDto.IdRoom}{_bookingDto.CheckInTimeId}{_bookingDto.Date.Date}";
+
+            BookingInputDto bookingInputDto = null;
+
+            if (memoryCache.TryGetValue(createPrimaryKey, out bookingInputDto))
+                return Task.FromResult<IActionResult>(Ok(false));
+
+            memoryCache.Set<BookingInputDto>(createPrimaryKey, _bookingDto, TimeSpan.FromMinutes(5));
+            return Task.FromResult<IActionResult>(Ok(true));
         }
     }
 }

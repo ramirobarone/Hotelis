@@ -20,5 +20,7 @@ export class AvialableRoomsService {
 
     return this.http.get(this.baseurl + `Bookings/GetSchedulesByRoom?idRoom=` + idRoom + "&date=" + date);
   }
-
+  public CheckTemporalAvaiabilityRoom (bookingDto: BookingDto): Observable<boolean> {
+    return this.http.post<boolean>(this.baseurl + 'bookings/CheckTemporalAvaiabilityRoom', bookingDto);
+  }
 }

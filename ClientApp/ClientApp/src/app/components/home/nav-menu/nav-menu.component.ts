@@ -21,13 +21,17 @@ export class NavMenuComponent implements OnInit {
   }
   refreshUser() {
     this.userName = localStorage.getItem('fullName');
+
     console.log('refreshUser', this.userName === null || this.userName === '' || this.userName === undefined);
+    console.log('username', this.userName);
     if (this.userName === null || this.userName === '' || this.userName === undefined) {
       this.isLoged = false;
       this.userName = '';
+      console.log('entre por el false');
     }
     else {
       this.isLoged = true;
+    
     }
   }
 

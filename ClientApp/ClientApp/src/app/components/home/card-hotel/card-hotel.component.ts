@@ -1,4 +1,3 @@
-import { RoomService } from 'src/services/room.service';
 import { Component, Input } from '@angular/core';
 import { Room } from 'src/models/room';
 import { Router } from '@angular/router';
@@ -25,7 +24,7 @@ export class CardHotelComponent {
   @Input()
   idHotel: string = '';
 
-  constructor(private RoomService: RoomService, private router: Router) {
+  constructor(private router: Router) {
 
   }
 

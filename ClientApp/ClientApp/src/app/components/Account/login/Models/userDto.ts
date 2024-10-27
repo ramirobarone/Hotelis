@@ -6,5 +6,6 @@ export interface UserLoginDto {
   token: string;
   fullName: string;
   rolId: number;
+  userGuid: string;
 }
 

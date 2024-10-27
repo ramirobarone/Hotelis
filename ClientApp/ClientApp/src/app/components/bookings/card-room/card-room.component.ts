@@ -1,12 +1,12 @@
 import { AvialableRoomsService } from 'src/services/AvialableRooms/avialable-rooms.service';
-import { RoomService } from '../../../services/room.service';
 import { Component, Injectable, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Room } from 'src/models/room';
 import { Cost } from 'src/models/Cost';
 import { BookingDto } from 'src/models/bookingDto';
-import { BookingsService } from 'src/services/Bookings/bookings.service';
+import { BookingsService } from 'src/app/components/bookings/bookings/service/bookings.service';
 import { Schedule } from 'src/models/Schedule';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-card-room',
@@ -25,6 +25,7 @@ export class CardRoomComponent {
   cost: Cost = { id: 0, idRoom: 0, costPerHour: 0, hour: 0 };
   _timesEntry: any;
   showRoomMessage: boolean = false;
+  CheckTemporalAvaiabilityRoomMessage = false;
 
   selectedDate: any;
   timeSelected: any;
@@ -37,7 +38,10 @@ export class CardRoomComponent {
   _booking: BookingDto | undefined;
   showCheckout = false;
 
-  constructor(private roomService: AvialableRoomsService, private route: ActivatedRoute, private serviceBooking: BookingsService) {
+  constructor(private roomService: AvialableRoomsService,
+    private route: ActivatedRoute,
+    private serviceBooking: BookingsService,
+    private router: Router) {
     this.idHotel = this.route.snapshot.paramMap.get('id')?.toString();
     this.getRoom(this.idHotel);
   }
@@ -106,25 +110,47 @@ export class CardRoomComponent {
   SelectTime(): void {
     this.btnBookingDisabled = this.timeSelected === undefined || this.timeSelected === 0;
   }
+
   CreateBooking(): void {
 
-    this.showCheckout = true;
+    let userGuid = localStorage.getItem('userGuid');
+    if (userGuid === null) {
+       this.router.navigate(['/login']);
+      return;
+    }
 
-    this.btnBookingDisabled = true;
+    this.CheckTemporalAvaiabilityRoomMessage = false;
 
-    this._booking = {
-      IdRoom: this.selectedRoom.id, Date: this.selectedDate, CheckInTimeId: this.timeSelected
-    };
+    this.roomService.CheckTemporalAvaiabilityRoom({ IdRoom: this.selectedRoom.id, 
+      Date: this.selectedDate, 
+      CheckInTimeId: this.timeSelected, userGuid: userGuid })
+      .subscribe(
+        (response: boolean) => {
 
-    this.serviceBooking.createBooking(this._booking).subscribe(res => {
-      this.btnBookingDisabled = false;
-    });
+          this.btnBookingDisabled = !response;
+          this.CheckTemporalAvaiabilityRoomMessage = !response;
+
+          if (response) {
+            this.showCheckout = true;
+
+            this.btnBookingDisabled = true;
+            this._booking = {
+              IdRoom: this.selectedRoom.id,
+              Date: this.selectedDate,
+              CheckInTimeId: this.timeSelected,
+              userGuid: userGuid || ''
+            };
+
+            this.serviceBooking.createBooking(this._booking).subscribe(res => {
+              this.btnBookingDisabled = false;
+            });
+          }
+        }
+      );
   }
+
   showModal(): void {
     const modalToggle = document.getElementById('toggleMyModal');
-
-    console.log(modalToggle);
-
   }
 
 }
