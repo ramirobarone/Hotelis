@@ -20,9 +20,9 @@ namespace ClientApp.Extensions
 
             webApplication.Services.AddHttpClient<IHttpClientService<RequestPayment, ResponsePayment>, HttpClientService<RequestPayment, ResponsePayment>>(httpClient =>
             {
-                MercadoPagoOption mercadoPagoOption = new MercadoPagoOption();
+                MercadoPagoOption mercadoPagoOption = new ();
                 webApplication.Configuration.GetSection(MercadoPagoOption.MercadoPagoOptionName).Bind(mercadoPagoOption);
-                httpClient.BaseAddress = new Uri(mercadoPagoOption.UrlBase);
+                httpClient.BaseAddress = new Uri(mercadoPagoOption.UrlBase ?? throw new Exception("Url Base mercado pago no existe"));
                 httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", mercadoPagoOption.Token);
             });
         }

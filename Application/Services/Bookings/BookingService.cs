@@ -22,7 +22,7 @@ namespace Application.Services.Reserves
 
             DateTime date = Convert.ToDateTime(_date);
 
-            List<ScheduleDto>? result = new List<ScheduleDto>();
+            List<ScheduleDto>? result = new();
 
             IEnumerable<Bookings> _bookings = await repositoryBookings.GetAllByIdAsync(x => x.IdRoom == _idRoom
             && x.DateReserved == date,

@@ -1,6 +1,5 @@
 using Application.Models.Extensions;
 using Infrastructure.Models;
-using System.Runtime.CompilerServices;
 
 namespace Application.Models
 {
@@ -14,9 +13,7 @@ namespace Application.Models
         public string? Email { get; set; }
         public int CodeArea { get; set; }
         public int PhoneNumber { get; set; }
-        public IEnumerable<HotelPictureDto> Pictures { get; set; }
-
-
+        public IEnumerable<HotelPictureDto>? Pictures { get; set; }
 
         public static implicit operator HotelDto(Hotel hotel)
         {
@@ -30,17 +27,17 @@ namespace Application.Models
                 MetaDescription = hotel.MetaDescription,
                 Name = hotel.Name,
                 PhoneNumber = hotel.PhoneNumber,
-                Pictures = hotel?.HotelPictures?.ConvertToHotelPictureDto(),
+                Pictures = hotel?.HotelPictures?.ConvertToHotelPictureDto() ?? Enumerable.Empty<HotelPictureDto>(),
 
                 AddressHotel = new Models.Address()
                 {
-                    Id = hotel.AddressHotel.Id,
-                    IdCity = hotel.AddressHotel.Id,
-                    Latitud = hotel.AddressHotel.Latitud,
-                    Longitud = hotel.AddressHotel.Longitud,
-                    Number = hotel.AddressHotel.Number,
-                    PostalCode = hotel.AddressHotel.PostalCode,
-                    Street = hotel.AddressHotel.Street
+                    Id = hotel?.AddressHotel.Id ?? 0,
+                    IdCity = hotel?.AddressHotel.IdCity ?? 0,
+                    Latitud = hotel?.AddressHotel?.Latitud ?? string.Empty,
+                    Longitud = hotel?.AddressHotel?.Longitud ?? string.Empty,
+                    Number = hotel?.AddressHotel?.Number ?? string.Empty,
+                    PostalCode = hotel?.AddressHotel?.PostalCode ?? string.Empty,
+                    Street = hotel?.AddressHotel?.Street ?? string.Empty
 
                 }
             };
@@ -52,24 +49,23 @@ namespace Application.Models
             {
                 Id = hotel.Id,
                 CodeArea = hotel.CodeArea,
-                Description = hotel.Description,
-                Email = hotel.Email,
-                MetaDescription = hotel.MetaDescription,
-                Name = hotel.Name,
+                Description = hotel.Description ?? string.Empty,
+                Email = hotel.Email ?? string.Empty,
+                MetaDescription = hotel.MetaDescription ?? string.Empty,
+                Name = hotel.Name ?? string.Empty,
                 PhoneNumber = hotel.PhoneNumber,
                 AddressHotel = new Address()
                 {
-                    Id = hotel.AddressHotel.Id,
-                    IdCity = hotel.AddressHotel.Id,
-                    Latitud = hotel.AddressHotel.Latitud,
-                    Longitud = hotel.AddressHotel.Longitud,
-                    Number = hotel.AddressHotel.Number,
-                    PostalCode = hotel.AddressHotel.PostalCode,
-                    Street = hotel.AddressHotel.Street
+                    Id = hotel.AddressHotel?.Id ?? 0,
+                    IdCity = hotel.AddressHotel?.IdCity ?? 0,
+                    Latitud = hotel.AddressHotel?.Latitud ?? string.Empty,
+                    Longitud = hotel.AddressHotel?.Longitud ?? string.Empty,
+                    Number = hotel.AddressHotel?.Number ?? string.Empty,
+                    PostalCode = hotel.AddressHotel?.PostalCode ?? string.Empty,
+                    Street = hotel.AddressHotel?.Street ?? string.Empty
 
                 }
             };
         }
     }
-
 }

@@ -32,7 +32,7 @@ namespace ClientApp.Controllers
 
             logger.LogInformation("Create booking");
 
-            Bookings _booking = await service.Create(_bookingInputDto);
+            await service.Create(_bookingInputDto);
 
             logger.LogInformation("Created booking {0}", _bookingInputDto);
 
@@ -60,9 +60,7 @@ namespace ClientApp.Controllers
         {
             string createPrimaryKey = $"{_bookingDto.IdRoom}{_bookingDto.CheckInTimeId}{_bookingDto.Date.Date}";
 
-            BookingInputDto bookingInputDto = null;
-
-            if (memoryCache.TryGetValue(createPrimaryKey, out bookingInputDto))
+            if (memoryCache.TryGetValue(createPrimaryKey, out _))
                 return Task.FromResult<IActionResult>(Ok(false));
 
             memoryCache.Set<BookingInputDto>(createPrimaryKey, _bookingDto, TimeSpan.FromMinutes(5));

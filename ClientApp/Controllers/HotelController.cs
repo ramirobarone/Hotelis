@@ -17,10 +17,13 @@ namespace ClientApp.Controllers
             if (string.IsNullOrEmpty(searchKey))
                 return NoContent();
 
-            var resultHotels = await serviceBySearchKey.SearchByKeyword(searchKey);
+            IEnumerable<HotelDto>? resultHotels = await serviceBySearchKey.SearchByKeyword(searchKey);
             logger.LogInformation("NameMethod {nameof(GetHotels)} - ResultSearchKey: {resultHotels}", nameof(GetHotels), System.Text.Json.JsonSerializer.Serialize(resultHotels));
 
-            return Ok(resultHotels);
+            if (resultHotels.Any())
+                return Ok(resultHotels);
+
+            return NoContent();
         }
 
         [HttpGet(nameof(GetHotel))]
@@ -28,7 +31,7 @@ namespace ClientApp.Controllers
         {
             logger.LogInformation("NameMethod {GetHotel} IdHotel {idHotel}", nameof(GetHotel), idHotel);
 
-            if (idHotel == null)
+            if (idHotel <= 0)
                 return NoContent();
 
             HotelDto _hotelDto = await serviceHotel.GetById(idHotel);

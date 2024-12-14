@@ -25,7 +25,7 @@
         public int transaction_amount_refunded { get; set; }
         public int coupon_amount { get; set; }
         public Transaction_Details? transaction_details { get; set; }
-        public Fee_Details[] fee_details { get; set; }
+        public Fee_Details[]? fee_details { get; set; }
         public string? statement_descriptor { get; set; }
         public int installments { get; set; }
         public Card? card { get; set; }
@@ -105,7 +105,7 @@
         public int expiration_year { get; set; }
         public DateTime date_created { get; set; }
         public DateTime date_last_updated { get; set; }
-        public Cardholder cardholder { get; set; }
+        public Cardholder? cardholder { get; set; }
     }
 
     public class Cardholder

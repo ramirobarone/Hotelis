@@ -5,7 +5,6 @@ using Application.Services.Account;
 using Application.Services.HotelServices;
 using Application.Services.Reserves;
 using Application.Services.Rooms;
-using Infrastructure.Models;
 
 namespace ClientApp.Extensions
 {
@@ -21,7 +20,6 @@ namespace ClientApp.Extensions
             app.Services.AddScoped<IBookings, BookingService>();
             app.Services.AddScoped<IServiceGeneric<RoomDto>, ServiceRoom>();
             app.Services.AddScoped<IAccountService, AccountService>();
-
 
         }
     }

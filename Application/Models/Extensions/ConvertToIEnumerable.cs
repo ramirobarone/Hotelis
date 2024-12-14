@@ -6,7 +6,7 @@ namespace Application.Models.Extensions
     {
         public static IEnumerable<HotelPictureDto> ConvertToHotelPictureDto(this ICollection<HotelPicture> images)
         {
-            List<HotelPictureDto> hotelPictureDtos = new List<HotelPictureDto>();
+            List<HotelPictureDto> hotelPictureDtos = new ();
 
             foreach (HotelPicture image in images)
             {

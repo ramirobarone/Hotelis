@@ -1,16 +1,10 @@
 ﻿namespace Application.Models.Booking.Available
 {
     public record AvailableRequestDto(int idRoom, int idCheckTime, DateTime date);
-    public class ScheduleDto
+    public class ScheduleDto(int Id, string InTime)
     {
-        public ScheduleDto(int id, string inTime)
-        {
-            this.Id = id;
-            this.InTime = inTime;
-        }
-        public int Id { get; init; }
-        public string InTime { get; init; }
-
+        public int Id { get; } = Id;
+        public string InTime { get; } = InTime;
 
         public static implicit operator ScheduleDto(Infrastructure.Models.TimesAvailable checkInTimes)
         {

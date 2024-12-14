@@ -11,9 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\Infras
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApiHotelis", "TestApiHotelis\TestApiHotelis.csproj", "{4F930803-C6A6-4B20-9041-39532654E923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotelis.AppHost", "Hotelis.AppHost\Hotelis.AppHost.csproj", "{4CF82EC2-EF6E-44C0-AD18-88A1FCAC6426}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelis.AppHost", "Hotelis.AppHost\Hotelis.AppHost.csproj", "{4CF82EC2-EF6E-44C0-AD18-88A1FCAC6426}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hotelis.ServiceDefaults", "Hotelis.ServiceDefaults\Hotelis.ServiceDefaults.csproj", "{F0B00C1C-AE4D-4A63-A437-51A2E2B223F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86578D4A-F88D-46B9-99C9-64E687283FD6}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

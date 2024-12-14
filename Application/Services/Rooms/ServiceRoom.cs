@@ -57,7 +57,7 @@ namespace Application.Services.Rooms
 
            var response = await repositoryTimes.GetAllByIdAsync(x => x.Id >= 0);
 
-            foreach (var time in response)
+            foreach (TimesAvailable time in response)
             {
                 times.Add(new ScheduleDto(time.Id, time.Time));
             }

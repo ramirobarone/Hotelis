@@ -9,7 +9,7 @@ namespace Application.Models
         public string? Description { get; set; }
         public int BedNumbers { get; set; }
         public bool AvialableNow { get; set; }
-        public CostDto Cost { get; set; }
+        public CostDto? Cost { get; set; }
         public IEnumerable<RoomPictures>? RoomPictures { get; set; }
 
         public static explicit operator RoomDto(Room room)

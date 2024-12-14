@@ -3,19 +3,19 @@ using Application.Models;
 using Infrastructure.Models;
 using Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace Application.Services.HotelServices
 {
     public class HotelServiceQuery(IRepository<Hotel> repositoryHotel,
-                                   IRepository<HotelPicture> repositoryPicture,
                                    ILogger<HotelServiceQuery> logger) : IServiceGeneric<HotelDto>, IServiceSearchByKeyword<HotelDto>
     {
 
         public async Task<HotelDto> Create(HotelDto entity)
         {
-            var _hotel = await repositoryHotel.CreateAsync(entity);
+            EntityEntry<Hotel>? _hotel = await repositoryHotel.CreateAsync(entity);
 
             return _hotel.Entity;
         }
@@ -33,7 +33,7 @@ namespace Application.Services.HotelServices
 
             logger.LogInformation("MethodName: {GetAllById} - result: {entity}", nameof(GetAllById), System.Text.Json.JsonSerializer.Serialize(resultQuery));
 
-            List<HotelDto> resultList = new List<HotelDto>();
+            List<HotelDto> resultList = new ();
 
             foreach (var result in resultQuery)
             {
@@ -47,7 +47,7 @@ namespace Application.Services.HotelServices
             var _hotel = await repositoryHotel.GetByIdAsync(x => x.Id == id, y => y.Include(x => x.AddressHotel));
 
             if (_hotel is null)
-                return await Task.FromResult<HotelDto>(result: null);
+                return await Task.FromResult<HotelDto>(result: new());
 
             return _hotel;
         }
@@ -63,9 +63,9 @@ namespace Application.Services.HotelServices
 
                 IList<HotelDto> hoteles = new List<HotelDto>();
 
-                foreach (var item in resultHotels)
+                foreach (var hotel in resultHotels)
                 {
-                    hoteles.Add(item);
+                    hoteles.Add(hotel);
                 }
 
                 return hoteles;
@@ -79,7 +79,7 @@ namespace Application.Services.HotelServices
 
         public async Task Update(HotelDto entity)
         {
-            if (entity == null) throw new ArgumentNullException(nameof(entity));
+            ArgumentNullException.ThrowIfNull(entity);
 
             await repositoryHotel.UpdateAsync(entity);
         }

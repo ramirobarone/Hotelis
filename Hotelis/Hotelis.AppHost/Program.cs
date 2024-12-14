@@ -1,16 +1,18 @@
-using k8s.Models;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var parameter = builder.AddParameter("password", true);
+var password = builder.AddParameter("hotelisPassword");
 
-var mySql = builder.AddMySql("mysqlServer").WithBindMount("scripts", "/docker-entryPoint-intidb.d").AddDatabase("other");
+var mySql = builder
+    .AddMySql("mysqlServer", password, 1433)
+    .WithDataVolume("hotelisVolumen")
+    .AddDatabase("hotelis");
 
-var sqlServer = builder
-    .AddSqlServer("sqlServerHotelis")
-    .WithBindMount("scripts", "/docker-entryPoint-intidb.d")
-    .AddDatabase("hotelis", "hotelis");
+var rabbit = builder.AddRabbitMQ("serverRabbit");
 
-builder.AddProject<Projects.ClientApp>("clientapp").WithReference(sqlServer).WithReference(mySql);
+
+builder.AddProject<Projects.ClientApp>("clientapp")
+    .WithReference(mySql)
+    .WithReference(rabbit);
 
 builder.Build().Run();

@@ -14,7 +14,7 @@ namespace Application.Services.Account
 {
     public class AccountService(IRepository<User> repositoryUser, IOptions<JwtOptions> jwtOptions) : IAccountService
     {
-        private SymmetricSecurityKey _key;
+        private SymmetricSecurityKey? _key;
         public async Task<UserLoginDto> Authenticate(UserDto userDto)
         {
             //logger.LogInformation("User authenticat is {0}:", userDto.Email);
@@ -33,10 +33,10 @@ namespace Application.Services.Account
         private async Task<User> IsUserAuthenticated(string email, string password) => await repositoryUser.GetByIdAsync(x => x.Email == email && x.Password == password);
         private string CreateToken(string userId)
         {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.Key));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions?.Value?.Key ?? throw new SecurityTokenNotYetValidException()));
             var claims = new List<Claim> {
-                new Claim (JwtRegisteredClaimNames.Jti, Guid.NewGuid ().ToString ()),
-                new Claim ("ID", userId),
+                new  (JwtRegisteredClaimNames.Jti, Guid.NewGuid ().ToString ()),
+                new  ("ID", userId),
             };
 
             var token = new JwtSecurityToken(

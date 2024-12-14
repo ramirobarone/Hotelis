@@ -16,7 +16,7 @@ namespace Application.Exceptions
         {
         }
 
-        protected BookingException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected BookingException(SerializationInfo info, StreamingContext context)
         {
         }
     }

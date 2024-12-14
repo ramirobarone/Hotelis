@@ -4,8 +4,10 @@ using Infrastructure.Models;
 
 namespace Application.Models.Users
 {
+#pragma warning disable
     public class UserCreateDto : UserDto
     {
+
         public UserCreateDto(string name, string lastName, string codeArea, string phoneNumber, string identityNumber, string email, string password) : base(email, password)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));

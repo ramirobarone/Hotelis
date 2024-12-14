@@ -2,6 +2,7 @@
 
 namespace Application.Models.User
 {
+#pragma warning disable 
     public class UserDto
     {
         public UserDto(string email, string password)

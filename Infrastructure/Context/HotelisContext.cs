@@ -34,7 +34,7 @@ public partial class HotelisContext : DbContext
     public DbSet<HotelPicture> HotelPicture { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySQL("Server=PXSNTAR-37;port=3306; database=hotelis; user id=hotelis;password=Hotelis2024;");
+        //optionsBuilder.UseMySQL("Server=PXSNTAR-37;port=3306; database=hotelis; user id=hotelis;password=Hotelis2024;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
