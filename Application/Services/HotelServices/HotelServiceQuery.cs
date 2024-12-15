@@ -55,7 +55,7 @@ namespace Application.Services.HotelServices
         public async Task<IEnumerable<HotelDto>> SearchByKeyword(string keyword)
         {
             if (string.IsNullOrEmpty(keyword))
-                throw new ArgumentNullException(nameof(keyword);
+                throw new ArgumentNullException(nameof(keyword));
 
             try
             {
