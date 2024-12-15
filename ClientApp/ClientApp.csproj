@@ -10,6 +10,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>preview</LangVersion>
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<UserSecretsId>d8b3cda7-95f6-49ff-a30f-5c3e56f2637c</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -12,6 +12,7 @@ namespace Infrastructure.Repository
         Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where);
         Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy);
         Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include);
+        Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include);
 
         Task UpdateAsync(T entity);
 

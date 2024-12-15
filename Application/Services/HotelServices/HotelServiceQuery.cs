@@ -54,11 +54,13 @@ namespace Application.Services.HotelServices
 
         public async Task<IEnumerable<HotelDto>> SearchByKeyword(string keyword)
         {
+            if (string.IsNullOrEmpty(keyword))
+                throw new ArgumentNullException(nameof(keyword);
+
             try
             {
-
                 IEnumerable<Hotel> resultHotels = await repositoryHotel
-                    .GetAllByIdAsync(x => x.MetaDescription.Contains(keyword), null, y => y.Include(x => x.AddressHotel)
+                    .GetAllByIdAsync(where: x => x.MetaDescription.Contains(keyword), y => y.Include(x => x.AddressHotel)
                     .Include(x => x.HotelPictures));
 
                 IList<HotelDto> hoteles = new List<HotelDto>();

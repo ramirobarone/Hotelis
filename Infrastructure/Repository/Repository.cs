@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Mysqlx.Crud;
 
 namespace Infrastructure.Repository
 {
@@ -67,6 +68,20 @@ namespace Infrastructure.Repository
             else
                 return await query.AsNoTracking().ToListAsync();
         }
+
+        public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
+        {
+            IQueryable<T> query = dbSet;
+
+            if (where != null)
+                query = query.Where(where);
+
+            if (include != null)
+                query = include(query);
+
+            return await query.AsNoTracking().ToListAsync();
+        }
+
         public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where)
         {
             IQueryable<T> query = dbSet;
@@ -124,5 +139,7 @@ namespace Infrastructure.Repository
         {
             return await dbSet.AsNoTracking().AnyAsync(where);
         }
+
+
     }
 }
