@@ -12,7 +12,7 @@ namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HotelisContext))]
     [Migration("20241012015236_userguid")]
-    partial class userguid
+    partial class Userguid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

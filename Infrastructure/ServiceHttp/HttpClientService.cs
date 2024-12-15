@@ -6,20 +6,29 @@ namespace Infrastructure.ServiceHttp
     {
         public async Task<TOut> Post(string url, Tin data)
         {
-            TOut model = default;
+            TOut? resultObject = default;
 
             var conten = new StringContent(System.Text.Json.JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync(url, conten);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                if (response.Content != null)
-                    model = System.Text.Json.JsonSerializer.Deserialize<TOut>(await conten.ReadAsStringAsync());
+            {
+                var content = await conten.ReadAsStringAsync();
+
+                if (conten is not null)
+                {
+                    resultObject = System.Text.Json.JsonSerializer.Deserialize<TOut>(content);
+
+                    if (resultObject is TOut)
+                        return (TOut)resultObject;
+                }
 
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                     throw new Exception("Problemas al realizar el pago.");
+            }
 
-            return model;
+            return resultObject ?? throw new ArgumentNullException();
         }
     }
 }

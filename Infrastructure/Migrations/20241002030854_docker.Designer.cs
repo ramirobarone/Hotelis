@@ -12,7 +12,7 @@ namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HotelisContext))]
     [Migration("20241002030854_docker")]
-    partial class docker
+    partial class Docker
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

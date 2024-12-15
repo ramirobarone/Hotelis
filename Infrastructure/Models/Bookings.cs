@@ -8,18 +8,18 @@ namespace Infrastructure.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public DateTime DateReserved { get; set; }
+        public int CheckInTimeId { get; set; }
         public int IdRoom { get; set; }
         public decimal Price { get; set; }
         public Guid UserGuid { get; set; }
-        public int CheckInTimeId { get; set; }
+        public DateTime DateReserved { get; set; }
 
-        public virtual TimesAvailable CheckInTime { get; set; }
-        public virtual User User { get; set; }
+        public virtual TimesAvailable? CheckInTime { get; set; }
+        public virtual User? User { get; set; }
 
         public override string ToString()
         {
-            return $"{nameof(Id)}: {Id} - {nameof(DateReserved)}:{DateReserved} - {nameof(CheckInTime)}:{CheckInTime.Time} - {nameof(IdRoom)}:{IdRoom} -{nameof(Price)}: {Price} - {nameof(User.Id)}:{User.Id}";
+            return $"{nameof(Id)}: {Id} - {nameof(DateReserved)}:{DateReserved} - {nameof(CheckInTime)}:{CheckInTime?.Time} - {nameof(IdRoom)}:{IdRoom} -{nameof(Price)}: {Price} - {nameof(User.Id)}:{User?.Id}";
         }
     }
     public class DetailPayment

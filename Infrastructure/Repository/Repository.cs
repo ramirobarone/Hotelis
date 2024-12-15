@@ -16,20 +16,23 @@ namespace Infrastructure.Repository
 
             dbSet = _hotelisContext.Set<T>();
         }
-        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
         {
-            if (where is null)
-                return default;
-
             IQueryable<T> query = dbSet;
 
             if (include != null)
                 query = include(query);
 
-            return await query.Where(where).FirstOrDefaultAsync();
+            return await query.Where(where).FirstAsync();
+        }
+        public async Task<T> GetByIdAsync(Expression<Func<T, bool>> where)
+        {
+            IQueryable<T> query = dbSet;
+
+            return await query.Where(where).FirstAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
         {
             IQueryable<T> query = dbSet;
 
@@ -52,6 +55,27 @@ namespace Infrastructure.Repository
                 return await query.AsNoTracking().ToListAsync();
             }
         }
+        public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy)
+        {
+            IQueryable<T> query = dbSet;
+
+            if (where != null)
+                query = query.Where(where);
+
+            if (orderBy != null)
+                return await orderBy(query).AsNoTracking().ToListAsync();
+            else
+                return await query.AsNoTracking().ToListAsync();
+        }
+        public async Task<IEnumerable<T>> GetAllByIdAsync(Expression<Func<T, bool>> where)
+        {
+            IQueryable<T> query = dbSet;
+
+            if (where != null)
+                query = query.Where(where);
+
+            return await query.AsNoTracking().ToListAsync();
+        }
 
         public Task UpdateAsync(T entity)
         {
@@ -65,11 +89,10 @@ namespace Infrastructure.Repository
         {
             if (dbSet != null)
             {
-                if (id != null)
+                if (id > 0)
                 {
-
-                    T entityToDelete = await dbSet.FindAsync(id);
-                    if (entityToDelete != null)
+                    var entityToDelete = await dbSet.FindAsync(id);
+                    if (entityToDelete is not null)
                     {
                         await DeleteAsync(entityToDelete);
                     }
@@ -97,7 +120,7 @@ namespace Infrastructure.Repository
             await _hotelisContext.SaveChangesAsync();
         }
 
-        public async Task<bool> Exist(Expression<Func<T, bool>> where, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        public async Task<bool> Exist(Expression<Func<T, bool>> where)
         {
             return await dbSet.AsNoTracking().AnyAsync(where);
         }

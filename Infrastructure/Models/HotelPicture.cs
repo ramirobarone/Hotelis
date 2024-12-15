@@ -6,6 +6,6 @@ namespace Infrastructure.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Path { get; set; }
+        public string? Path { get; set; }
     }
 }

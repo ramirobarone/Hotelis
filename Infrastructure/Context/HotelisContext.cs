@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Infrastructure.Models;
-using MySql.Data.MySqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Context;
 
 public partial class HotelisContext : DbContext
 {
-    private readonly MySqlConnection mySqlConnection;
     public HotelisContext()
     {
-        
+
     }
     public HotelisContext(DbContextOptions<HotelisContext> options)
         : base(options)
